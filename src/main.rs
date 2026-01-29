@@ -1,3 +1,5 @@
+#![allow(unused_imports, dead_code)]
+
 mod startup; 
 mod ball;
 mod paddles;
@@ -9,7 +11,6 @@ use crate::startup::*;
 use crate::ball::*;
 use crate::paddles::*;
 
-// TESTING GIT 1
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {

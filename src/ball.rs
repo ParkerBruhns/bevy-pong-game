@@ -3,6 +3,7 @@ use rand::prelude::*;
 
 use crate::startup::*;
 
+
 pub const BALL_SIZE: f32 = 5.0;
 
 #[derive(Component, Default)]
@@ -12,7 +13,8 @@ pub struct Position(Vec2);
 #[derive(Component)]
 #[require(Position)]
 pub struct Ball {
-    pub direction: Vec3
+    pub direction: Vec2,
+    pub speed: f32,
 }
 
 
@@ -24,7 +26,8 @@ pub fn ball_movement(
     let Ok((mut transform, mut ball)) = query.single_mut() else {
         panic!("Query not found... Exiting");
     };
-    transform.translation += ball.direction;
+    transform.translation.x += ball.direction.x;
+    transform.translation.y += ball.direction.y;
 
     let y_max = SCREEN_HEIGHT/2.0;
     let x_max = SCREEN_WIDTH/2.0;

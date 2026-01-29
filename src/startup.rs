@@ -25,12 +25,12 @@ pub fn spawn_ball(
 
     let mesh = meshes.add(shape);
     let material = materials.add(color);
-    let mut ball = Ball { 
-        direction: Vec3::new(
+    let ball = Ball { 
+        direction: Vec2::new(
                 rand::rng().random_range(-1.0..1.0) * 5.0,
-                rand::rng().random_range(-1.0..1.0) * 5.0,
-                0.0
-                ) 
+                rand::rng().random_range(-1.0..1.0) * 5.0
+        ),
+        speed: 100.0
     };
     // let mut ball = Ball { direction: Vec3::new(10.0, 10.0, 0.0) };
 
