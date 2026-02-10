@@ -39,3 +39,6 @@ pub fn move_paddles(
         paddle_2.translation.y = paddle_2.translation.y.clamp(min_y, max_y);
     }
 }
+
+// TODO: Complete paddle_collision
+pub fn paddle_collision(){}

@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::text::cosmic_text::ttf_parser::math::MathValue;
 use rand::prelude::*;
 
 use crate::ball::*;
@@ -23,7 +24,7 @@ pub fn spawn_ball(
 
     let mesh = meshes.add(shape);
     let material = materials.add(color);
-    let ball = Ball::new_ball(10.0, 500.0);
+    let ball = Ball::new_ball(std::f32::consts::PI, 500.0);
     // let mut ball = Ball { direction: Vec3::new(10.0, 10.0, 0.0) };
 
     commands.spawn((

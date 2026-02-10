@@ -35,6 +35,7 @@ pub fn ball_movement(
     let Ok((mut transform, mut ball)) = query.single_mut() else {
         panic!("Query not found... Exiting");
     };
+
     transform.translation += ball.direction * ball.speed * time.delta_secs();
 
     let y_max = SCREEN_HEIGHT / 2.0;
