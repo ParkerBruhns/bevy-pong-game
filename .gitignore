@@ -1,2 +1,8 @@
 # target folder un-nessecary
-target/
+/target/
+**.*/rs.bk
+Cargo.lock
+.DS_Store
+*.swp
+*.swo
+EOF
