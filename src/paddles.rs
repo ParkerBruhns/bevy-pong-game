@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
-use crate::startup::*;
 use crate::ball::*;
+use crate::startup::*;
 
 #[derive(Component)]
 #[require(Position)]
@@ -11,9 +11,8 @@ pub const RECTANGLE_WIDTH: f32 = 6.0;
 
 pub fn move_paddles(
     mut paddles: Query<&mut Transform, With<Paddle>>,
-    keyboard_input: Res<ButtonInput<KeyCode>>
+    keyboard_input: Res<ButtonInput<KeyCode>>,
 ) {
-
     let max_y = (SCREEN_HEIGHT / 2.0) - (RECTANGLE_HEIGHT / 2.0);
     let min_y = -(SCREEN_HEIGHT / 2.0) + (RECTANGLE_HEIGHT / 2.0);
 

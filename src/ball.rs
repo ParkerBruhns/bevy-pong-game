@@ -1,8 +1,7 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::cosmic_text::Angle};
 use rand::prelude::*;
 
 use crate::startup::*;
-
 
 pub const BALL_SIZE: f32 = 5.0;
 
@@ -13,24 +12,33 @@ pub struct Position(Vec2);
 #[derive(Component)]
 #[require(Position)]
 pub struct Ball {
-    pub direction: Vec2,
+    pub angle: f32,
+    pub direction: Vec3,
     pub speed: f32,
 }
 
+impl Ball {
+    pub fn new_ball(angle: f32, speed: f32) -> Ball {
+        return Ball {
+            angle: angle, 
+            direction: Vec3::new(angle.cos(), angle.sin(), 0.0), 
+            speed: speed 
+        }
+    }
+}
 
 pub fn ball_movement(
-    mut commands: Commands,
+    mut _commands: Commands,
     time: Res<Time>,
-    mut query: Query<(&mut Transform, &mut Ball)>
-    ) {
+    mut query: Query<(&mut Transform, &mut Ball)>,
+) {
     let Ok((mut transform, mut ball)) = query.single_mut() else {
         panic!("Query not found... Exiting");
     };
-    transform.translation.x += ball.direction.x;
-    transform.translation.y += ball.direction.y;
+    transform.translation += ball.direction * ball.speed * time.delta_secs();
 
-    let y_max = SCREEN_HEIGHT/2.0;
-    let x_max = SCREEN_WIDTH/2.0;
+    let y_max = SCREEN_HEIGHT / 2.0;
+    let x_max = SCREEN_WIDTH / 2.0;
 
     if transform.translation.x < -x_max {
         transform.translation.x = -x_max;
@@ -47,9 +55,4 @@ pub fn ball_movement(
         transform.translation.y = y_max;
         ball.direction.y *= -1.0;
     }
-
-    // // Clamping the ball to the bounds
-    // transform.translation.x = transform.translation.x.clamp(-max_x, max_x);
-    // transform.translation.y = transform.translation.y.clamp(-max_y, max_y);
-    
 }

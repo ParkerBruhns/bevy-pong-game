@@ -1,15 +1,15 @@
 #![allow(unused_imports, dead_code)]
 
-mod startup; 
 mod ball;
 mod paddles;
+mod startup;
 
 use bevy::prelude::*;
-use bevy::window::{WindowMode, PresentMode};
+use bevy::window::{PresentMode, WindowMode};
 
-use crate::startup::*;
 use crate::ball::*;
 use crate::paddles::*;
+use crate::startup::*;
 
 fn main() {
     App::new()
@@ -23,7 +23,10 @@ fn main() {
             }),
             ..default()
         }))
-        .add_systems(Startup, (spawn_camera, spawn_ball, spawn_paddles, spawn_line))
+        .add_systems(
+            Startup,
+            (spawn_camera, spawn_ball, spawn_paddles, spawn_line),
+        )
         .add_systems(Update, (move_paddles, ball_movement))
         .run();
 }
