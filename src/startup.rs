@@ -1,3 +1,6 @@
+use std::f32::consts;
+use std::f32::consts::PI;
+
 use bevy::prelude::*;
 use bevy::text::cosmic_text::ttf_parser::math::MathValue;
 use rand::prelude::*;
@@ -24,8 +27,14 @@ pub fn spawn_ball(
 
     let mesh = meshes.add(shape);
     let material = materials.add(color);
-    let ball = Ball::new_ball(std::f32::consts::PI, 500.0);
-    // let mut ball = Ball { direction: Vec3::new(10.0, 10.0, 0.0) };
+
+    let mut rng = rand::rng();
+
+    let min: f32 = 0.0;
+    let max: f32 = std::f32::consts::PI;
+
+    let angle = rng.random_range(min..max);
+    let ball = Ball::new_ball(angle, 500.0);
 
     commands.spawn((
         ball,

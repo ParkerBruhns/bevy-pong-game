@@ -1,4 +1,5 @@
 use bevy::{prelude::*, text::cosmic_text::Angle};
+use bevy_rapier2d::prelude::*;
 use rand::prelude::*;
 
 use crate::startup::*;

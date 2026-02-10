@@ -6,6 +6,7 @@ mod startup;
 
 use bevy::prelude::*;
 use bevy::window::{PresentMode, WindowMode};
+use bevy_rapier2d::prelude::*;
 
 use crate::ball::*;
 use crate::paddles::*;
@@ -23,6 +24,7 @@ fn main() {
             }),
             ..default()
         }))
+    .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(100.0))
         .add_systems(
             Startup,
             (spawn_camera, spawn_ball, spawn_paddles, spawn_line),
