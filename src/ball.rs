@@ -1,5 +1,4 @@
 use bevy::{prelude::*, text::cosmic_text::Angle};
-use bevy_rapier2d::prelude::*;
 use rand::prelude::*;
 
 use crate::startup::*;
@@ -19,12 +18,25 @@ pub struct Ball {
 }
 
 impl Ball {
-    pub fn new_ball(angle: f32, speed: f32) -> Ball {
-        return Ball {
+    pub fn new_ball(angle: f32, speed: f32) -> Self {
+        Self {
             angle: angle, 
             direction: Vec3::new(angle.cos(), angle.sin(), 0.0), 
             speed: speed 
         }
+    }
+
+    pub fn reverse_x_direction(&mut self) {
+        self.direction.x *= -1.0;
+    }
+    
+    pub fn reverse_y_direction(&mut self) {
+        self.direction.y *= -1.0;
+    }
+    
+    pub fn reverse_direction(&mut self) {
+        self.reverse_x_direction();
+        self.reverse_y_direction();
     }
 }
 
@@ -43,18 +55,18 @@ pub fn ball_movement(
     let x_max = SCREEN_WIDTH / 2.0;
 
     if transform.translation.x < -x_max {
-        transform.translation.x = -x_max;
-        ball.direction.x *= -1.0;
+        // transform.translation.x = -x_max;
+        ball.reverse_x_direction();
     } else if transform.translation.x > x_max {
-        transform.translation.x = x_max;
-        ball.direction.x *= -1.0;
+        // transform.translation.x = x_max;
+        ball.reverse_x_direction();
     }
 
     if transform.translation.y < -y_max {
-        transform.translation.y = -y_max;
-        ball.direction.y *= -1.0;
+        // transform.translation.y = -y_max;
+        ball.reverse_y_direction();
     } else if transform.translation.y > y_max {
-        transform.translation.y = y_max;
-        ball.direction.y *= -1.0;
+        // transform.translation.y = y_max;
+        ball.reverse_y_direction();
     }
 }

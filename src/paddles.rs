@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use bevy_rapier2d::prelude::*;
 
 use crate::ball::*;
 use crate::startup::*;
@@ -43,10 +42,8 @@ pub fn move_paddles(
 
 // TODO: Complete paddle_collision
 pub fn paddle_collision(
-    mut paddles: Query<&mut Transform, With<Paddle>>,
-    mut ball: Query<&mut Transform, With<Ball>>
+    mut paddle_query: Query<&mut Transform, With<Paddle>>,
+    mut ball_query: Query<&mut Transform, With<Ball>>
 ) {
-    let mut iter = paddles.iter_mut();
-
 
 }

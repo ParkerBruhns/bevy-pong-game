@@ -3,14 +3,17 @@
 mod ball;
 mod paddles;
 mod startup;
+mod collision;
 
 use bevy::prelude::*;
+use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
 use bevy::window::{PresentMode, WindowMode};
-use bevy_rapier2d::prelude::*;
 
 use crate::ball::*;
 use crate::paddles::*;
 use crate::startup::*;
+use crate::collision::*;
+
 
 fn main() {
     App::new()
@@ -24,7 +27,6 @@ fn main() {
             }),
             ..default()
         }))
-    .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(100.0))
         .add_systems(
             Startup,
             (spawn_camera, spawn_ball, spawn_paddles, spawn_line),
