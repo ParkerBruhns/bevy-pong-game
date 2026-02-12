@@ -2,6 +2,7 @@ use bevy::{prelude::*, text::cosmic_text::Angle};
 use rand::prelude::*;
 
 use crate::startup::*;
+use crate::collision::*;
 
 pub const BALL_SIZE: f32 = 5.0;
 
@@ -10,7 +11,9 @@ pub const BALL_SIZE: f32 = 5.0;
 pub struct Position(Vec2);
 
 #[derive(Component)]
-#[require(Position)]
+#[require(
+    Position,
+    Collider = Collider(Rectangle::new(BALL_SIZE, -BALL_SIZE)))]
 pub struct Ball {
     pub angle: f32,
     pub direction: Vec3,
