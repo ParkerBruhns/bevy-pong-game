@@ -13,10 +13,10 @@ pub struct Position(Vec2);
 #[derive(Component)]
 #[require(
     Position,
-    Collider = Collider(Rectangle::new(BALL_SIZE, -BALL_SIZE)))]
+    Collider = Collider(Rectangle::new(BALL_SIZE * 2.0, BALL_SIZE * 2.0)))]
 pub struct Ball {
     pub angle: f32,
-    pub direction: Vec3,
+    pub direction: Vec2,
     pub speed: f32,
 }
 
@@ -24,7 +24,7 @@ impl Ball {
     pub fn new_ball(angle: f32, speed: f32) -> Self {
         Self {
             angle: angle, 
-            direction: Vec3::new(angle.cos(), angle.sin(), 0.0), 
+            direction: Vec2::new(angle.cos(), angle.sin()), 
             speed: speed 
         }
     }
@@ -52,7 +52,7 @@ pub fn ball_movement(
         panic!("Query not found... Exiting");
     };
 
-    transform.translation += ball.direction * ball.speed * time.delta_secs();
+    transform.translation += ball.direction.extend(0.0) * ball.speed * time.delta_secs();
 
     let y_max = SCREEN_HEIGHT / 2.0;
     let x_max = SCREEN_WIDTH / 2.0;

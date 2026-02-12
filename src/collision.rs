@@ -24,19 +24,19 @@ pub enum Collision {
 }
 
 pub fn handle_collisions(
-    ball: Single<(&Position, &Collider), With<Ball>>,
-    other_things: Query<(&Position, &Collider), Without<Ball>>
+    ball_query: Single<(&Transform, &Collider, &mut Ball), With<Ball>>,
+    other_things: Query<(&Transform, &Collider), Without<Ball>>
 ) {
-    let (ball_position, ball_collider) = ball.into_inner();
+    let (ball_transform, ball_collider, mut ball) = ball_query.into_inner();
 
-    for (other_position, other_collider) in &other_things {
+    for (other_transform, other_collider) in &other_things {
         if let Some(collision) = collide_with_side(
-            Aabb2d::new(ball_position.0, ball_collider.half_size()),
-            Aabb2d::new(other_position.0, other_collider.half_size())
+            Aabb2d::new(ball_transform.translation.truncate(), ball_collider.half_size()),
+            Aabb2d::new(other_transform.translation.truncate(), other_collider.half_size())
         ) {
             match collision {
-                Collision::Left || Collision::Right -> ball.reverse_x_direction(),
-                Collision::Top || Collision::Bottom -> ball.reverse_y_direction(),
+                Collision::Left | Collision::Right => ball.reverse_x_direction(),
+                Collision::Top | Collision::Bottom => ball.reverse_y_direction(),
             }
         }
     }

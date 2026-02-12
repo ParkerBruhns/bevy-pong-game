@@ -2,12 +2,17 @@ use bevy::prelude::*;
 
 use crate::ball::*;
 use crate::startup::*;
+use crate::collision::*;
 
-#[derive(Component)]
-#[require(Position)]
-pub struct Paddle;
 pub const RECTANGLE_HEIGHT: f32 = 48.0;
 pub const RECTANGLE_WIDTH: f32 = 6.0;
+
+#[derive(Component)]
+#[require(
+    Position,
+    Collider(Rectangle::new(RECTANGLE_WIDTH, RECTANGLE_HEIGHT))
+)]
+pub struct Paddle;
 
 pub fn move_paddles(
     mut paddles: Query<&mut Transform, With<Paddle>>,
@@ -41,9 +46,9 @@ pub fn move_paddles(
 }
 
 // TODO: Complete paddle_collision
-pub fn paddle_collision(
-    mut paddle_query: Query<&mut Transform, With<Paddle>>,
-    mut ball_query: Query<&mut Transform, With<Ball>>
-) {
-
-}
+// pub fn paddle_collision(
+//     mut paddle_query: Query<&mut Transform, With<Paddle>>,
+//     mut ball_query: Query<&mut Transform, With<Ball>>
+// ) {
+//
+// }

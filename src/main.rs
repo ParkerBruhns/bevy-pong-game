@@ -31,6 +31,6 @@ fn main() {
             Startup,
             (spawn_camera, spawn_ball, spawn_paddles, spawn_line),
         )
-        .add_systems(Update, (move_paddles, ball_movement))
+        .add_systems(Update, (move_paddles, ball_movement, handle_collisions))
         .run();
 }
