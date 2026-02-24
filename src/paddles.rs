@@ -14,6 +14,12 @@ pub const RECTANGLE_WIDTH: f32 = 6.0;
 )]
 pub struct Paddle;
 
+#[derive(Component)]
+pub struct Player;
+
+#[derive(Component)]
+pub struct Ai;
+
 pub fn move_paddles(
     mut paddles: Query<&mut Transform, With<Paddle>>,
     keyboard_input: Res<ButtonInput<KeyCode>>,

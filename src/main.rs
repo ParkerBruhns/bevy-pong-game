@@ -4,6 +4,7 @@ mod ball;
 mod paddles;
 mod startup;
 mod collision;
+mod score;
 
 use bevy::prelude::*;
 use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
@@ -13,6 +14,7 @@ use crate::ball::*;
 use crate::paddles::*;
 use crate::startup::*;
 use crate::collision::*;
+use crate::score::*;
 
 
 fn main() {
@@ -27,6 +29,7 @@ fn main() {
             }),
             ..default()
         }))
+        .insert_resource(Score {player: 0, ai: 0})
         .add_systems(
             Startup,
             (spawn_camera, spawn_ball, spawn_paddles, spawn_line),

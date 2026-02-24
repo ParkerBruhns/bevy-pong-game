@@ -58,6 +58,7 @@ pub fn spawn_paddles(
     // let transform: Transform = Transform::from_xyz(10.0, 10.0, 0.0);
 
     commands.spawn((
+        Player,
         Paddle,
         Mesh2d(mesh.clone()),
         MeshMaterial2d(material.clone()),
@@ -65,6 +66,7 @@ pub fn spawn_paddles(
     ));
 
     commands.spawn((
+        Ai,
         Paddle,
         Mesh2d(mesh.clone()),
         MeshMaterial2d(material.clone()),

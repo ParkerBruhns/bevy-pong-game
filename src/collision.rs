@@ -40,7 +40,6 @@ pub fn handle_collisions(
             }
         }
     }
-
 }
 
 pub fn collide_with_side(ball: Aabb2d, wall: Aabb2d) -> Option<Collision> {
