@@ -1,7 +1,7 @@
-use std::f32::consts::PI;
+use std::f32::consts::PI as π;
 
 use bevy::prelude::*;
-use bevy::text::cosmic_text::ttf_parser::math::MathValue;
+// use bevy::text::cosmic_text::ttf_parser::math::MathValue;
 use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
 
 use rand::prelude::*;
@@ -31,10 +31,12 @@ pub fn spawn_ball(
 
     let mut rng = rand::rng();
 
-    let min: f32 = 0.0;
-    let max: f32 = std::f32::consts::PI;
+    let angle = if rng.random_bool(0.5) {
+        rng.random_range(-(π/6.0)..(π/6.0))
+    } else {
+        rng.random_range((5.0*π/6.0)..(7.0*π/6.0))
+    };
 
-    let angle = rng.random_range(min..max);
     let ball = Ball::new_ball(angle, 500.0);
 
     commands.spawn((
@@ -79,7 +81,7 @@ pub fn spawn_line(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    let shape = Rectangle::new(RECTANGLE_WIDTH / 2.0, RECTANGLE_HEIGHT * 1.5);
+    let shape = Rectangle::new(RECTANGLE_WIDTH / 2.0, RECTANGLE_HEIGHT / 1.5);
     let color = Color::srgb(1.0, 1.0, 1.0);
 
     let mesh = meshes.add(shape);

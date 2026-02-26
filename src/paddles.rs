@@ -4,13 +4,13 @@ use crate::ball::*;
 use crate::startup::*;
 use crate::collision::*;
 
-pub const RECTANGLE_HEIGHT: f32 = 48.0;
-pub const RECTANGLE_WIDTH: f32 = 6.0;
+pub const RECTANGLE_HEIGHT: f32 = 100.0;
+pub const RECTANGLE_WIDTH: f32 = 10.0;
 
 #[derive(Component)]
 #[require(
     Position,
-    Collider(Rectangle::new(RECTANGLE_WIDTH, RECTANGLE_HEIGHT))
+    Collider = Collider(Rectangle::new(RECTANGLE_WIDTH, RECTANGLE_HEIGHT))
 )]
 pub struct Paddle;
 
@@ -21,34 +21,36 @@ pub struct Player;
 pub struct Ai;
 
 pub fn move_paddles(
-    mut paddles: Query<&mut Transform, With<Paddle>>,
+    mut player_paddle: Single<&mut Transform, (With<Player>, Without<Ai>)>,
+    mut ai_paddle: Single<&mut Transform, (With<Ai>, Without<Player>)>,
     keyboard_input: Res<ButtonInput<KeyCode>>,
 ) {
     let max_y = (SCREEN_HEIGHT / 2.0) - (RECTANGLE_HEIGHT / 2.0);
     let min_y = -(SCREEN_HEIGHT / 2.0) + (RECTANGLE_HEIGHT / 2.0);
 
-    let mut iter = paddles.iter_mut();
-    if let Some(mut paddle_1) = iter.next() {
-        if keyboard_input.pressed(KeyCode::KeyW) {
-            paddle_1.translation.y += 10.0;
-        }
-        if keyboard_input.pressed(KeyCode::KeyS) {
-            paddle_1.translation.y -= 10.0;
-        }
+    // let &mut paddle_1 = Query::single(&player_paddle).unwrap();
+    // let &mut paddle_2 = Query::single(&ai_paddle).unwrap();
 
-        paddle_1.translation.y = paddle_1.translation.y.clamp(min_y, max_y);
+
+    // Player paddle movement
+    if keyboard_input.pressed(KeyCode::KeyW) {
+        player_paddle.translation.y += 12.0;
+    }
+    if keyboard_input.pressed(KeyCode::KeyS) {
+        player_paddle.translation.y -= 12.0;
     }
 
-    if let Some(mut paddle_2) = iter.next() {
-        if keyboard_input.pressed(KeyCode::KeyO) {
-            paddle_2.translation.y += 10.0;
-        }
-        if keyboard_input.pressed(KeyCode::KeyL) {
-            paddle_2.translation.y -= 10.0;
-        }
+    player_paddle.translation.y = player_paddle.translation.y.clamp(min_y, max_y);
 
-        paddle_2.translation.y = paddle_2.translation.y.clamp(min_y, max_y);
+    // Ai paddle movement
+    if keyboard_input.pressed(KeyCode::KeyO) {
+        ai_paddle.translation.y += 12.0;
     }
+    if keyboard_input.pressed(KeyCode::KeyL) {
+        ai_paddle.translation.y -= 12.0;
+    }
+
+    ai_paddle.translation.y = ai_paddle.translation.y.clamp(min_y, max_y);
 }
 
 // TODO: Complete paddle_collision

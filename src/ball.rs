@@ -1,10 +1,10 @@
-use bevy::{prelude::*, text::cosmic_text::Angle};
+use bevy::prelude::*;
 use rand::prelude::*;
 
 use crate::startup::*;
 use crate::collision::*;
 
-pub const BALL_SIZE: f32 = 5.0;
+pub const BALL_SIZE: f32 = 8.0;
 
 #[derive(Component, Default)]
 #[require(Transform)]

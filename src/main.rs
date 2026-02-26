@@ -1,4 +1,4 @@
-#![allow(unused_imports, dead_code)]
+#![allow(unused_imports, dead_code, mixed_script_confusables)]
 
 mod ball;
 mod paddles;
@@ -8,7 +8,7 @@ mod score;
 
 use bevy::prelude::*;
 use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
-use bevy::window::{PresentMode, WindowMode};
+use bevy::window::*;
 
 use crate::ball::*;
 use crate::paddles::*;
@@ -22,7 +22,7 @@ fn main() {
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "Pong".to_string(),
-                resolution: (SCREEN_WIDTH, SCREEN_HEIGHT).into(),
+                resolution: WindowResolution::new(SCREEN_WIDTH as u32, SCREEN_HEIGHT as u32),
                 mode: WindowMode::Windowed,
                 present_mode: PresentMode::AutoVsync,
                 ..default()
