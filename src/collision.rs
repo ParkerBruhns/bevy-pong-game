@@ -10,7 +10,7 @@ use crate::startup::*;
 pub struct Collider(pub Rectangle);
 
 impl Collider {
-    fn half_size(&self) -> Vec2 {
+    pub fn half_size(&self) -> Vec2 {
         self.0.half_size
     }
 }

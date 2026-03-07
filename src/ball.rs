@@ -5,10 +5,11 @@ use crate::startup::*;
 use crate::collision::*;
 
 pub const BALL_SIZE: f32 = 8.0;
+pub const BALL_SPEED: f32 = 500.0; 
 
 #[derive(Component, Default)]
 #[require(Transform)]
-pub struct Position(Vec2);
+pub struct Position(pub(crate) Vec2);
 
 #[derive(Component)]
 #[require(

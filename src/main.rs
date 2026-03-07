@@ -29,11 +29,20 @@ fn main() {
             }),
             ..default()
         }))
-        .insert_resource(Score {player: 0, ai: 0})
+    .insert_resource(Score {player: 0, ai: 0})
         .add_systems(
             Startup,
-            (spawn_camera, spawn_ball, spawn_paddles, spawn_line),
+            (spawn_camera, spawn_ball, spawn_paddles, spawn_line, spawn_scoreboard),
         )
-        .add_systems(Update, (move_paddles, ball_movement, handle_collisions))
+        .add_systems(
+            FixedUpdate, (
+                move_paddles, 
+                ball_movement, 
+                handle_collisions,
+                detect_goal.after(ball_movement)
+            )
+        )
+        .add_observer(reset_ball)
+        .add_observer(update_score)
         .run();
 }

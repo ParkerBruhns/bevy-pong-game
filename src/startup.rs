@@ -29,15 +29,9 @@ pub fn spawn_ball(
     let mesh = meshes.add(shape);
     let material = materials.add(color);
 
-    let mut rng = rand::rng();
+    let angle = rand_angle();
 
-    let angle = if rng.random_bool(0.5) {
-        rng.random_range(-(π/6.0)..(π/6.0))
-    } else {
-        rng.random_range((5.0*π/6.0)..(7.0*π/6.0))
-    };
-
-    let ball = Ball::new_ball(angle, 500.0);
+    let ball = Ball::new_ball(angle, BALL_SPEED);
 
     commands.spawn((
         ball,
@@ -45,6 +39,17 @@ pub fn spawn_ball(
         Mesh2d(mesh),
         MeshMaterial2d(material),
     ));
+}
+
+pub fn rand_angle() -> f32 {
+    let mut rng = rand::rng();
+
+    let angle = if rng.random_bool(0.5) {
+        rng.random_range(-(π/6.0)..(π/6.0))
+    } else {
+        rng.random_range((5.0*π/6.0)..(7.0*π/6.0))
+    };
+    angle
 }
 
 pub fn spawn_paddles(
